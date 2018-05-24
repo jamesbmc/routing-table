@@ -2,7 +2,7 @@
 As the internet has expanded, **fast** routing of packets has become increasingly important. These packets make up the content that is sent between devices, and we have grown accustomed to on-demand access to that content. How are packets sent from far off servers (say at Google) to your computer?
 
 ## A Packet's Journey
-The answer is "next hop" routing. A packet contains a few items of information, among which is the IP address of its destination. Routers store a table in hardware that (usually) dynamically learns where to send packets addressed to certain networks.
+The answer is "next hop" routing. A packet contains a few items of information, among which is the IP address of its destination. Routers store a table in hardware that (usually) dynamically learns where to send packets.
 
 ![alt text](http://www.cis131.com/mediawiki/images/a/af/Cis131-fig12-3.jpg)
 
