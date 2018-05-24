@@ -21,6 +21,7 @@ Searching the routing table for the longest matching network is also an O(n) ope
 
 ### The Lookup Trie
 A more interesting answer to the longest matching network prefix problem is a trie (which can also be used to predict what word you will type based on the letters entered so far!). A trie is a data structure similar to a binary tree in that there is a root node with children that represent the first letter/number of an input. In our case, binary has only two possible values so the trie will be exactly a binary (each node has at most two children) tree with nodes to the left representing 0 and nodes to the right representing 1:
+
 ![alt text](https://www.researchgate.net/profile/Hyesook_Lim/publication/224116488/figure/fig1/AS:302885238788097@1449224876335/The-binary-trie-for-an-example-set-of-prefixes.png)
 
 (Credit to https://www.researchgate.net)
@@ -76,7 +77,7 @@ Next hop on interface 6
 Time to lookup longest matching prefix: 8322500ns
 ```
 
-**The trie method is vastly faster than the list method!** In terms of populating the table and searching for a longest matching prefix, the trie method is __~150X__ faster than the list method.
+**The trie method is vastly faster than the list method!** In terms of populating the table and searching for a longest matching prefix, the trie method is _~150X_ faster than the list method.
 
 ## Why Does it Matter?
 The speeds listed above are in nanoseconds or .000000001 of a second. Populating the routing tables may be relatively slow, but what we as consumers care about is access to the internet as fast as possible. When the trie method is 150X faster than the list method, those nanoseconds add up. Next time you browse the internet, be thankful for algorithms like the trie method; without them, much of the internet activity today would be impossible at worst and infuriating at best.
