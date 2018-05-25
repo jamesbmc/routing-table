@@ -4,5 +4,5 @@ public interface LookupTable {
     
     public void search(String address);
     
-    public void print();
+    public void searchDetailed(String address);
 }

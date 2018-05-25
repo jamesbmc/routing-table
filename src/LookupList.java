@@ -22,7 +22,15 @@ public class LookupList implements LookupTable{
         }
     }
     
+    public void searchDetailed(String address) {
+        searchHelper(address, true);
+    }
+    
     public void search(String address) {
+        searchHelper(address, false);
+    }
+    
+    private void searchHelper(String address, boolean detailed) {
         Node curr = head;
         int maxMatchingDigits = 0;
         int iface = -1;
@@ -44,11 +52,13 @@ public class LookupList implements LookupTable{
             }
             curr = curr.next;
         }
-        if (iface == -1) {
-            System.out.println("No path to destination " + address);
-        } else {
-            System.out.println("Destination: " + address + ", Longest Prefix: " + matchAddress + "*");
-            System.out.println("Next hop on interface " + iface);
+        if (detailed) {
+            if (iface == -1) {
+                System.out.println("No path to destination " + address);
+            } else {
+                System.out.println("Destination: " + address + ", Longest Prefix: " + matchAddress + "*");
+                System.out.println("Next hop on interface " + iface);
+            }
         }
     }
     

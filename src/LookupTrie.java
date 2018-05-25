@@ -26,7 +26,15 @@ public class LookupTrie implements LookupTable{
         curr.address = address;
     }
 
+    public void searchDetailed(String address) {
+        searchHelper(address, true);
+    }
+    
     public void search(String address) {
+        searchHelper(address, false);
+    }
+    
+    public void searchHelper(String address, boolean detailed) {
         int matchingDigits = 0;
         String search = address;
         Node curr = head;
@@ -45,11 +53,13 @@ public class LookupTrie implements LookupTable{
             search = search.substring(1, search.length());
             matchingDigits++;
         }
-        if (matchingDigits == 0 || longestMatchingAddress == "") {
-            System.out.println("No path to destination " + address);
-        } else {
-            System.out.println("Destination: " + address + ", Longest Prefix: " + longestMatchingAddress + "*");
-            System.out.println("Next hop on interface " + longestMatchingIface);
+        if (detailed) {
+            if (matchingDigits == 0 || longestMatchingAddress == "") {
+                System.out.println("No path to destination " + address);
+            } else {
+                System.out.println("Destination: " + address + ", Longest Prefix: " + longestMatchingAddress + "*");
+                System.out.println("Next hop on interface " + longestMatchingIface);
+            }
         }
     }
     
