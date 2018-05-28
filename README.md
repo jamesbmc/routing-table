@@ -37,31 +37,31 @@ Searching the routing table for the longest matching network prefix has the same
 This github repo contains the code necessary to implement a lookup list and a lookup trie. I first created a routing master table:
 ```java
 Random rand = new Random();
-        final int tableSize = 1400000;
-        String[] routingTable = new String[tableSize];
-        for (int i = 0; i < tableSize; i++) {
-            int networkSize = rand.nextInt(31) + 1;
-            StringBuilder sb = new StringBuilder();
-            for (int j = 0; j < networkSize; j++) {
-                sb.append("" + rand.nextInt(2));
-            }
-            routingTable[i] = sb.toString();
-        }
+final int tableSize = 1400000;
+String[] routingTable = new String[tableSize];
+for (int i = 0; i < tableSize; i++) {
+  int networkSize = rand.nextInt(31) + 1;
+  StringBuilder sb = new StringBuilder();
+  for (int j = 0; j < networkSize; j++) {
+    sb.append("" + rand.nextInt(2));
+  }
+  routingTable[i] = sb.toString();
+}
 ```
 This block of code initializes an array containing 1.4 million network prefixes ranging in length from 1-31 digits long (the data type stored is a string because that is easier to iterate through when checking matching digits). One was the lower end of the range as opposed to 0 because I thought it would be interesting to observe how many times a path to the destination address was not found. In reality, there would be a default gateway (corresponding to a 0 length network address) through which to send the packet if there are no other matches. 31 was the high end of the range because IPv4 addresses are 32 bits long and so a 32 bit network address prefix would leave no room for hosts.
 
 My lookup list and lookup trie were populated by the following function:
 ```java
 public static void populateLookupTable(LookupTable lookupTable, String[] routingTable) {
-        long startTime = System.currentTimeMillis();
-        Random rand = new Random(42);
-        for (int i = 0; i < 30000; i++) {
-            lookupTable.add(routingTable[rand.nextInt(routingTable.length)], rand.nextInt(10));
-        }
-        long endTime = System.currentTimeMillis();;
-        long duration = endTime - startTime;
-        System.out.println("Time to populate table: " + duration + "ms");
-    }
+  long startTime = System.currentTimeMillis();
+  Random rand = new Random(42);
+  for (int i = 0; i < 30000; i++) {
+    lookupTable.add(routingTable[rand.nextInt(routingTable.length)], rand.nextInt(10));
+  }
+  long endTime = System.currentTimeMillis();;
+  long duration = endTime - startTime;
+  System.out.println("Time to populate table: " + duration + "ms");
+}
 ```
 This function randomly chooses 30,000 network prefixes from the master routingTable instantiated above and inserts them into the lookup list/trie. Instead of inserting the multiple routing values a routing table would usually hold, I chose to match each network prefix with a random number between 0 and 9 to represent the interface over which the packet must be sent. The randomly generated number are seeded, so the same values are inserted into each routing table. After populating the routing tables, it was time to test the lookup speed of each implementation.
 
